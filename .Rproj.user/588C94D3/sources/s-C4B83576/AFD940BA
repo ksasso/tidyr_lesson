@@ -1,0 +1,24 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1563832951676.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "0",
+    "id" : "AFD940BA",
+    "lastKnownWriteTime" : 1563762752,
+    "last_content_update" : 1563762752,
+    "path" : "~/Google Drive/tidyr_lesson/TidyData_Presentation.Rmd",
+    "project_path" : "TidyData_Presentation.Rmd",
+    "properties" : {
+        "chunk_output_type" : "console"
+    },
+    "read_only" : false,
+    "read_only_alternatives" : [
+    ],
+    "relative_order" : 2,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_markdown"
+}
