@@ -1532,19 +1532,30 @@ div.tocify {
 <ul>
 <li>The first argument is the <em>data</em> to reshape <em>datoy_wide</em></li>
 <li>The second argument describes which <em>cols</em> needs to be reshaped, in this case it’s <em>English &amp; Maths</em></li>
-<li>The <em>names_to</em> argument gives the name of the variable that will be created from the data stored in the column names, i.e. <em>Subject</em></li>
-<li>The <em>values_to</em> gives the name of the variable that will be created from the data stored in the cell value, i.e. <em>Score</em>
+<li>The <em>names_to</em> argument gives the name of the variable that will be created from the data stored in the column names, i.e. <em>Subject</em></li>
+<li>The <em>values_to</em> gives the name of the variable that will be created from the data stored in the cell value, i.e. <em>Score</em>
 <ul>
 <li>Neither the names_to nor the values_to column exists in datoy_wide, so we provide them as character strings surrounded in quotes.</li>
 </ul></li>
 </ul>
 <p>Let’s code it!</p>
 <pre class="r"><code>?pivot_longer
-datoy_wide  
-#&gt;    Name English Maths
-#&gt; 1   Ben    19.0  58.5
-#&gt; 2   Sam     6.7  51.8
-#&gt; 3 Sarah    14.9  45.1</code></pre>
+
+datoy_wide  %&gt;% 
+  pivot_longer(
+    cols = -Name,
+    names_to = &quot;subject&quot;,
+    values_to = &quot;score&quot;
+  )
+#&gt; # A tibble: 6 x 3
+#&gt;   Name  subject score
+#&gt;   &lt;chr&gt; &lt;chr&gt;   &lt;dbl&gt;
+#&gt; 1 Ben   English  19  
+#&gt; 2 Ben   Maths    58.5
+#&gt; 3 Sam   English   6.7
+#&gt; 4 Sam   Maths    51.8
+#&gt; 5 Sarah English  14.9
+#&gt; 6 Sarah Maths    45.1</code></pre>
 </div>
 <div id="you-try-religion-and-income" class="section level2">
 <h2>You try: Religion and Income!</h2>
@@ -1562,7 +1573,7 @@ relig_income %&gt;%
 #&gt; 5 Don’t k…      15        14        15        11        10        35
 #&gt; 6 Evangel…     575       869      1064       982       881      1486
 #&gt; # … with 4 more variables: `$75-100k` &lt;dbl&gt;, `$100-150k` &lt;dbl&gt;,
-#&gt; #   `&gt;150k` &lt;dbl&gt;, `Don&#39;t know/refused` &lt;dbl&gt;
+#&gt; #   `&gt;150k` &lt;dbl&gt;, `Don't know/refused` &lt;dbl&gt;
 
 #relig_income %&gt;% 
 # pivot_longer(
@@ -1573,7 +1584,7 @@ relig_income %&gt;%
 <p>Let’s try again.</p>
 <p>Uncomment the code below and fill in to tidy the relig_income dataset</p>
 <ul>
-<li>Try a different way of selecting “cols” than we did above and be sure to fill in arguments names_to and values_to</li>
+<li>Try a different way of selecting “cols” than we did above (i.e., -religion) and be sure to fill in arguments names_to and values_to</li>
 </ul>
 <pre class="r"><code>relig_income %&gt;% 
   head()
@@ -1587,7 +1598,7 @@ relig_income %&gt;%
 #&gt; 5 Don’t k…      15        14        15        11        10        35
 #&gt; 6 Evangel…     575       869      1064       982       881      1486
 #&gt; # … with 4 more variables: `$75-100k` &lt;dbl&gt;, `$100-150k` &lt;dbl&gt;,
-#&gt; #   `&gt;150k` &lt;dbl&gt;, `Don&#39;t know/refused` &lt;dbl&gt;
+#&gt; #   `&gt;150k` &lt;dbl&gt;, `Don't know/refused` &lt;dbl&gt;
 
 #relig_income %&gt;% 
 # pivot_longer(
@@ -1599,7 +1610,7 @@ relig_income %&gt;%
 <ol style="list-style-type: decimal">
 <li><p>pivot_longer(data = relig_income,cols = -c(religion), names_to = “income”, values_to = “count”)</p></li>
 <li><p>pivot_longer(data = relig_income,cols = 2:11, names_to = “income”, values_to = “count”)</p></li>
-<li><p>pivot_longer(data = relig_income,cols = <code>&lt;$10k</code>:<code>Don&#39;t know/refused</code>, names_to = “income”, values_to = “count”)</p></li>
+<li><p>pivot_longer(data = relig_income,cols = <code>&lt;$10k</code>:<code>Don't know/refused</code>, names_to = “income”, values_to = “count”)</p></li>
 <li><p>pivot_longer(data = relig_income,cols = &lt;$10k:Don’t know/refused, names_to = “income”, values_to = “count”)</p></li>
 </ol>
 <blockquote>
@@ -1648,8 +1659,8 @@ relig_income %&gt;%
 
 ?pivot_wider</code></pre>
 <ul>
-<li><p>The first argument is the <em>data</em> to reshape <em>weather</em></p></li>
-<li><p>The second argument,<em>id_cols</em> describes which columns that unique identify each observation. The default is usually sufficient (defaults to all columns in the data except for the columns specified in names_from and values_from)</p>
+<li>The first argument is the <em>data</em> to reshape <em>weather</em></li>
+<li>The second argument,<em>id_cols</em> describes which columns that unique identify each observation. The default is usually sufficient (defaults to all columns in the data except for the columns specified in names_from and values_from)
 <ul>
 <li>Typically only used when you have an additional variable that is directly related. Can be helpful in cleaning multiple choice data</li>
 </ul></li>
@@ -1699,7 +1710,7 @@ tidy_relig_income
 #&gt;  7 Agnostic $75-100k             122
 #&gt;  8 Agnostic $100-150k            109
 #&gt;  9 Agnostic &gt;150k                 84
-#&gt; 10 Agnostic Don&#39;t know/refused    96
+#&gt; 10 Agnostic Don't know/refused    96
 #&gt; # … with 170 more rows
 
 #want
@@ -1726,7 +1737,7 @@ relig_income
 #&gt; 17 Other W…       5         2         3         4         2         7
 #&gt; 18 Unaffil…     217       299       374       365       341       528
 #&gt; # … with 4 more variables: `$75-100k` &lt;dbl&gt;, `$100-150k` &lt;dbl&gt;,
-#&gt; #   `&gt;150k` &lt;dbl&gt;, `Don&#39;t know/refused` &lt;dbl&gt;
+#&gt; #   `&gt;150k` &lt;dbl&gt;, `Don't know/refused` &lt;dbl&gt;
 
 # tidy_relig_income %&gt;% 
 #   pivot_wider(
@@ -1757,7 +1768,7 @@ relig_income
 <h2>Putting it all together</h2>
 <p>Load &amp; examine the following dataset</p>
 <pre class="r"><code>stocks &lt;- tibble(
-  time = as.Date(&#39;2009-01-01&#39;) + 0:9,
+  time = as.Date('2009-01-01') + 0:9,
   X = rnorm(10, 0, 1),
   Y = rnorm(10, 0, 2),
   Z = rnorm(10, 0, 4)
@@ -1765,18 +1776,18 @@ relig_income
 
 stocks
 #&gt; # A tibble: 10 x 4
-#&gt;    time              X       Y      Z
-#&gt;    &lt;date&gt;        &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt;
-#&gt;  1 2009-01-01  0.500    2.07    3.30 
-#&gt;  2 2009-01-02 -0.603   -2.44    1.80 
-#&gt;  3 2009-01-03 -0.174    0.369   4.28 
-#&gt;  4 2009-01-04  1.82    -6.00    4.35 
-#&gt;  5 2009-01-05 -0.251    0.372  -0.584
-#&gt;  6 2009-01-06  0.810    0.0831 -1.46 
-#&gt;  7 2009-01-07 -0.00731 -1.64    4.12 
-#&gt;  8 2009-01-08 -0.0457   2.04   -0.413
-#&gt;  9 2009-01-09  0.468   -0.0278  0.665
-#&gt; 10 2009-01-10 -2.16     1.29   -0.727</code></pre>
+#&gt;    time            X       Y      Z
+#&gt;    &lt;date&gt;      &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt;
+#&gt;  1 2009-01-01 -0.685 -0.0685  4.30 
+#&gt;  2 2009-01-02  0.289 -2.71    0.884
+#&gt;  3 2009-01-03  0.362  2.44   -4.28 
+#&gt;  4 2009-01-04  0.721  3.81   -1.60 
+#&gt;  5 2009-01-05  1.23  -0.741   7.41 
+#&gt;  6 2009-01-06 -0.779 -0.578  -1.23 
+#&gt;  7 2009-01-07 -0.282  1.56   -4.88 
+#&gt;  8 2009-01-08  1.06  -0.927  -2.40 
+#&gt;  9 2009-01-09  0.579 -0.992  -6.16 
+#&gt; 10 2009-01-10  0.413  0.305  -1.03</code></pre>
 <p>Make a new dataset “tidy_stocks” by using the appropriate pivot function to tidy</p>
 <pre class="r"><code># insert tidying code here
 
@@ -1787,12 +1798,12 @@ head(stocks)
 #&gt; # A tibble: 6 x 4
 #&gt;   time            X       Y      Z
 #&gt;   &lt;date&gt;      &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt;
-#&gt; 1 2009-01-01  0.500  2.07    3.30 
-#&gt; 2 2009-01-02 -0.603 -2.44    1.80 
-#&gt; 3 2009-01-03 -0.174  0.369   4.28 
-#&gt; 4 2009-01-04  1.82  -6.00    4.35 
-#&gt; 5 2009-01-05 -0.251  0.372  -0.584
-#&gt; 6 2009-01-06  0.810  0.0831 -1.46
+#&gt; 1 2009-01-01 -0.685 -0.0685  4.30 
+#&gt; 2 2009-01-02  0.289 -2.71    0.884
+#&gt; 3 2009-01-03  0.362  2.44   -4.28 
+#&gt; 4 2009-01-04  0.721  3.81   -1.60 
+#&gt; 5 2009-01-05  1.23  -0.741   7.41 
+#&gt; 6 2009-01-06 -0.779 -0.578  -1.23
 #from tidy_stocks created above
 #head(tidy_stocks)
 

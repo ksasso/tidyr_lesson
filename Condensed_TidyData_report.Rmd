@@ -37,7 +37,6 @@ To tidy we need to use pivot_longer to make the following transformation
 
 [pivot longer animation](./pivot_longer_animation.html)
 
-
 - The first argument is the *data* to reshape *datoy_wide*
 - The second argument describes which *cols* needs to be reshaped, in this case it's *English & Maths*
 - The *names_to* argument gives the name of the variable that will be created from the data stored in the column names, i.e. *Subject*
@@ -48,7 +47,10 @@ Let's code it!
 
 ```{r}
 ?pivot_longer
-datoy_wide  
+
+#datoy_wide  %>% 
+#  pivot_longer(
+#  )
 ```
 
 ## You try: Religion and Income!
@@ -73,7 +75,7 @@ Let's try again.
 
 Uncomment the code below and fill in to tidy the relig_income dataset
 
-- Try a different way of selecting "cols" than we did above and be sure to fill in arguments names_to and values_to
+- Try a different way of selecting "cols" than we did above (i.e., -religion) and be sure to fill in arguments names_to and values_to
 
 ```{r}
 relig_income %>% 
@@ -179,21 +181,25 @@ relig_income
 
 ```
 
-One More
+<!-- One More -->
 
-Tidy "table2" using pivot_wider
+<!-- Tidy "table2" using pivot_wider -->
 
-HINT:
+<!-- HINT: -->
 
-- This dataset is actually untidy, like the weather example, in that some values are actually variables (i.e., variables stored in a column)
- 
+<!-- - This dataset is actually untidy, like the weather example, in that some values are actually variables (i.e., variables stored in a column) -->
 
-```{r}
-table2 %>% 
-  head()
 
-# insert tidying code here
-```
+<!-- ```{r} -->
+<!-- table2 %>%  -->
+<!--   head() -->
+
+<!-- # insert tidying code here -->
+
+<!-- # table2 %>%  -->
+<!-- #   pivot_wider( -->
+<!-- #   ) -->
+<!-- ``` -->
 
 
 ## Putting it all together
@@ -216,23 +222,8 @@ Make a new dataset "tidy_stocks" by using the appropriate pivot function to tidy
 ```{r}
 # insert tidying code here
 
-tidy_stocks <- stocks %>% pivot_longer(-time, names_to = "stock", values_to = "price")
-```
-
-After you've tidied stocks, make another table "untidy_stocks" by putting "tidy_stocks"
-back in its original format:
-
-```{r}
-#desired
-head(stocks)
-#from tidy_stocks created above
-#head(tidy_stocks)
-
-#untidy_stocks <- tidy_stocks %>% 
-#  pivot_????()
-
-#check
-#head(untidy_stocks)
+# tidy_stocks <- stocks %>% 
+#   pivot_???()
 ```
 
 

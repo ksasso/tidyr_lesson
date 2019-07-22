@@ -71,17 +71,7 @@ library(tidyr)
  
 ## Concept Map
 
-<center><img src="./img/concept_map.png" height="650px" /></center> 
-
-## Data Wrangling: Tidying
-
-- Often data does not come clean
-- We can use tools in R to replace manual manipulations in Excel, like pivot tables
-
- <center><img src="./img/mtcars_messydataa.jpg" height="400px" /></center> [^messy_data]
-
-[^messy_data]: Image courtesy of @AdamGruer via Twitter
-
+<center><img src="./img/concept_map.png" height="500px" /></center> 
 
 ## Data Wrangling: Tidying
 
@@ -91,39 +81,23 @@ library(tidyr)
 
  <center><img src="./img/logos_wrangle_all.png" height="400px" width = "750px" /></center>
 
-## What is Tidy Data ?
-
-- each **variable** must have its own **column**
-- each **observations** must have its own **row**
-- each **value** must have its own **cell**
-  + Impossible to satisfy 2 of 3 rules
-
-From _R for Data Science: Tidy Data Chapter_, by Hadley Wickham & Garrett Grolemund
-
-<center><img src="./img/tidy_data.png" height="600px" width="750px" /></center>
-
 ## Tidy Data
 
-<center><img src="./img/concept_map.png" height="700px" /></center>
+<center><img src="./img/concept_map.png" height="400px" /></center>
 
 relig_income data[^relig_income]
 
 [^relig_income]:The relig_income dataset comes from a report produced by the Pew Research Center, examining the relationship between income and religion in the U.S.
 
-## Why Tidy? 
+- each **variable** must have its own **column**
+- each **observations** must have its own **row**
+- each **value** must have its own **cell**
+  + Impossible to satisfy 2 of 3 rules
+  
+- Why Tidy?
 
-<div class="column-left">
-Why is this "better"
-<left><img src="./img/relig_income_pivotlonger.png" height="300px" width = "350px"/></left>
-</div>
-
-<div class="column-left">
-Than this:
-<left><img src="./img/relig_income_orig.png" height="300px" width = "450px"/></left>
-</div>
-
-- Consistency in storage = consistency in tools that work
-- Key R functions (i.e., mutate, select, ggplot, filter) work on vectors of values
+  + Consistency in storage = consistency in tools that work
+  + Key R functions (i.e., mutate, select, ggplot, filter) work on vectors of values
 
 ## Is this Tidy Data?
 
