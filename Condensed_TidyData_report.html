@@ -1522,40 +1522,27 @@ div.tocify {
 <ul>
 <li>3 variables
 <ul>
-<li><em>Name</em> stored in rows</li>
-<li><em>Subject</em> spread across column names</li>
-<li><em>Score</em> stored in cell values</li>
+<li><code>Name</code> stored in rows</li>
+<li><code>Subject</code> spread across column names</li>
+<li><code>Score</code> stored in cell values</li>
 </ul></li>
 </ul>
 <p>To tidy we need to use pivot_longer to make the following transformation</p>
 <p><a href="./pivot_longer_animation.html">pivot longer animation</a></p>
 <ul>
-<li>The first argument is the <em>data</em> to reshape <em>datoy_wide</em></li>
-<li>The second argument describes which <em>cols</em> needs to be reshaped, in this case it’s <em>English &amp; Maths</em></li>
-<li>The <em>names_to</em> argument gives the name of the variable that will be created from the data stored in the column names, i.e. <em>Subject</em></li>
-<li>The <em>values_to</em> gives the name of the variable that will be created from the data stored in the cell value, i.e. <em>Score</em>
+<li>Essential arguments
 <ul>
-<li>Neither the names_to nor the values_to column exists in datoy_wide, so we provide them as character strings surrounded in quotes.</li>
+<li><code>data</code>specifies the df to reshape <code>datoy_wide</code></li>
+<li><code>cols</code> specifies the columns that needs to be reshaped, in this case it’s <code>English &amp; Maths</code>. Hint: the columns that contain values, not variables, as headers</li>
+<li><code>names_to</code> a string specifying the name of the new column to create from the data stored in the headers of the columns specified in the <code>cols</code> argument, i.e. <code>Subject</code></li>
+<li><code>values_to</code> a string specifiying the name of the new column to create from the data stored in the cell values of the columns specified in the <code>cols</code> argument, i.e. <code>Score</code></li>
 </ul></li>
 </ul>
 <p>Let’s code it!</p>
 <pre class="r"><code>?pivot_longer
 
-datoy_wide  %&gt;% 
-  pivot_longer(
-    cols = -Name,
-    names_to = &quot;subject&quot;,
-    values_to = &quot;score&quot;
-  )
-#&gt; # A tibble: 6 x 3
-#&gt;   Name  subject score
-#&gt;   &lt;chr&gt; &lt;chr&gt;   &lt;dbl&gt;
-#&gt; 1 Ben   English  19  
-#&gt; 2 Ben   Maths    58.5
-#&gt; 3 Sam   English   6.7
-#&gt; 4 Sam   Maths    51.8
-#&gt; 5 Sarah English  14.9
-#&gt; 6 Sarah Maths    45.1</code></pre>
+#datoy_wide  %&gt;% 
+#  pivot_longer()</code></pre>
 </div>
 <div id="you-try-religion-and-income" class="section level2">
 <h2>You try: Religion and Income!</h2>
@@ -1584,7 +1571,11 @@ relig_income %&gt;%
 <p>Let’s try again.</p>
 <p>Uncomment the code below and fill in to tidy the relig_income dataset</p>
 <ul>
-<li>Try a different way of selecting “cols” than we did above (i.e., -religion) and be sure to fill in arguments names_to and values_to</li>
+<li>Try specifying the columns to pivot into a longer format in the <code>cols</code> argument in a different way than you did above.
+<ul>
+<li>Remember we can use tidyselect principles to specify columns</li>
+<li>Be sure to fill in arguments <code>names_to</code> and <code>values_to</code></li>
+</ul></li>
 </ul>
 <pre class="r"><code>relig_income %&gt;% 
   head()
@@ -1606,16 +1597,6 @@ relig_income %&gt;%
 #   names_to = ,
 #   values_to = 
 #   )</code></pre>
-<p>Which of the following would NOT have worked?</p>
-<ol style="list-style-type: decimal">
-<li><p>pivot_longer(data = relig_income,cols = -c(religion), names_to = “income”, values_to = “count”)</p></li>
-<li><p>pivot_longer(data = relig_income,cols = 2:11, names_to = “income”, values_to = “count”)</p></li>
-<li><p>pivot_longer(data = relig_income,cols = <code>&lt;$10k</code>:<code>Don't know/refused</code>, names_to = “income”, values_to = “count”)</p></li>
-<li><p>pivot_longer(data = relig_income,cols = &lt;$10k:Don’t know/refused, names_to = “income”, values_to = “count”)</p></li>
-</ol>
-<blockquote>
-<p>syntactically valid names consists of letters, numbers and the dot or underline characters and starts with a letter or the dot not followed by a number</p>
-</blockquote>
 </div>
 <div id="pivot_wider-an-observation-is-scattered-across-multiple-rows" class="section level2">
 <h2>pivot_wider: An observation is scattered across multiple rows</h2>
@@ -1635,13 +1616,13 @@ relig_income %&gt;%
 #&gt; 5 MX17004  2010     2 tmax    11     29.7
 #&gt; 6 MX17004  2010     2 tmax    23     29.9</code></pre>
 <ul>
-<li>Most variables have individuals columns <em>(id, year,month, day, value)</em> but two variables <em>(tmax, tmin)</em> are spread across rows, and stored in the “element” column.
+<li>Most variables have individuals columns (<code>id</code>, <code>year</code>, <code>month</code>, <code>day</code>, <code>value</code>) but two variables (<code>tmax</code>, <code>tmin</code>) are spread across rows, and stored in the <code>element</code> column.
 <ul>
-<li>Element is not a variable - it’s a column that stores the names of two variables</li>
+<li><code>element</code> is not a variable - it’s a column that stores the names of two variables</li>
 </ul></li>
-<li>Fixing this requires <strong>pivot_wider</strong> function
+<li>Fixing this requires <code>pivot_wider</code> function
 <ul>
-<li>Performs the inverse of <strong>pivot_longer</strong> by spreading the <em>element</em> and <em>value</em> columns back out into columns</li>
+<li>Performs the inverse of <code>pivot_longer</code> by spreading the <code>element</code> and <code>value</code> columns back out into columns</li>
 </ul></li>
 </ul>
 <pre class="r"><code>weather %&gt;% 
@@ -1659,13 +1640,16 @@ relig_income %&gt;%
 
 ?pivot_wider</code></pre>
 <ul>
-<li>The first argument is the <em>data</em> to reshape <em>weather</em></li>
-<li>The second argument,<em>id_cols</em> describes which columns that unique identify each observation. The default is usually sufficient (defaults to all columns in the data except for the columns specified in names_from and values_from)
+<li>Essential Arguments
 <ul>
-<li>Typically only used when you have an additional variable that is directly related. Can be helpful in cleaning multiple choice data</li>
+<li><code>data</code>specifies the df to reshape <code>weather</code></li>
+<li><code>names_from</code> and <code>values_from</code> are paired arguments describing which column(s) R should get the name of the output column(s) from, <code>name_from</code> = <code>element</code>, and which column(s) it should get the cell values from <code>values_from</code> = <code>value</code>
+<ul>
+<li><code>names_from</code> usually column(s) that contains the names of variables as values</li>
+<li><code>values_from</code> the column(s) whose values correspond to the variable(s) stored in the <code>names_from</code> columns(s)</li>
 </ul></li>
-<li><p>The <em>names_from</em> and <em>values_from</em> are paired arguments describing which column (or columns) to get the name of the output column <em>(name_from = element)</em>, and which column (or columns) to get the cell values from <em>(values_from = value)</em></p></li>
-<li><p>In practice, relatively rare to need pivot_wider for tidying, but it’s often useful for creating summary tables for presentation</p></li>
+</ul></li>
+<li>In practice, relatively rare to need pivot_wider for tidying, but it’s often useful for creating summary tables for presentation</li>
 </ul>
 <p>Remember we tidied the scores data</p>
 <pre class="r"><code>datoy_long
@@ -1679,20 +1663,13 @@ relig_income %&gt;%
 <p>What if we wanted this in wide format for a summary table?</p>
 <p><a href="./pivot_wider_animation.html">pivot wider animation</a></p>
 <p>Let’s code it!</p>
-<pre class="r"><code>datoy_long 
-#&gt;   Name Subject Score
-#&gt; 1  Ben   Maths  10.0
-#&gt; 2  Ben English  63.7
-#&gt; 3  Sam   Maths  52.9
-#&gt; 4  Sam English  75.6
-#&gt; 5 Alex   Maths  88.8
-#&gt; 6 Alex English  92.2</code></pre>
+<pre class="r"><code>#datoy_long %&gt;% 
+#  pivot_wider()</code></pre>
 </div>
 <div id="you-try" class="section level2">
 <h2>You try!</h2>
 <p>Take our “tidied” relig_income data set and put it back in its original “wide” format by uncommenting the code below</p>
 <pre class="r"><code>
-
 tidy_relig_income &lt;- relig_income %&gt;% 
   pivot_longer(cols = -religion, names_to = &quot;income&quot;, values_to = &quot;count&quot;)
 
@@ -1744,25 +1721,6 @@ relig_income
 #     names_from = ,
 #     values_from = 
 #   )</code></pre>
-<p>One More</p>
-<p>Tidy “table2” using pivot_wider</p>
-<p>HINT:</p>
-<ul>
-<li>This dataset is actually untidy, like the weather example, in that some values are actually variables (i.e., variables stored in a column)</li>
-</ul>
-<pre class="r"><code>table2 %&gt;% 
-  head()
-#&gt; # A tibble: 6 x 4
-#&gt;   country      year key            value
-#&gt;   &lt;fct&gt;       &lt;int&gt; &lt;fct&gt;          &lt;int&gt;
-#&gt; 1 Afghanistan  1999 cases            745
-#&gt; 2 Afghanistan  1999 population  19987071
-#&gt; 3 Afghanistan  2000 cases           2666
-#&gt; 4 Afghanistan  2000 population  20595360
-#&gt; 5 Brazil       1999 cases          37737
-#&gt; 6 Brazil       1999 population 172006362
-
-# insert tidying code here</code></pre>
 </div>
 <div id="putting-it-all-together" class="section level2">
 <h2>Putting it all together</h2>
@@ -1776,45 +1734,29 @@ relig_income
 
 stocks
 #&gt; # A tibble: 10 x 4
-#&gt;    time            X       Y      Z
-#&gt;    &lt;date&gt;      &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt;
-#&gt;  1 2009-01-01 -0.685 -0.0685  4.30 
-#&gt;  2 2009-01-02  0.289 -2.71    0.884
-#&gt;  3 2009-01-03  0.362  2.44   -4.28 
-#&gt;  4 2009-01-04  0.721  3.81   -1.60 
-#&gt;  5 2009-01-05  1.23  -0.741   7.41 
-#&gt;  6 2009-01-06 -0.779 -0.578  -1.23 
-#&gt;  7 2009-01-07 -0.282  1.56   -4.88 
-#&gt;  8 2009-01-08  1.06  -0.927  -2.40 
-#&gt;  9 2009-01-09  0.579 -0.992  -6.16 
-#&gt; 10 2009-01-10  0.413  0.305  -1.03</code></pre>
-<p>Make a new dataset “tidy_stocks” by using the appropriate pivot function to tidy</p>
+#&gt;    time             X      Y      Z
+#&gt;    &lt;date&gt;       &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;
+#&gt;  1 2009-01-01 -0.0967 -0.292 -5.79 
+#&gt;  2 2009-01-02  0.400  -1.78   0.564
+#&gt;  3 2009-01-03  0.149  -0.296 -7.50 
+#&gt;  4 2009-01-04  0.610  -0.274  1.77 
+#&gt;  5 2009-01-05 -0.285   1.08  -1.55 
+#&gt;  6 2009-01-06 -0.128   4.29  -4.28 
+#&gt;  7 2009-01-07  1.41    3.25   5.22 
+#&gt;  8 2009-01-08  1.10    0.129  5.14 
+#&gt;  9 2009-01-09 -0.0330  1.60  -4.61 
+#&gt; 10 2009-01-10  1.92    1.40   2.10</code></pre>
+<p>Make a new dataset “tidy_stocks” by using the appropriate pivot function to tidy. - replace “???” with longer or wider</p>
 <pre class="r"><code># insert tidying code here
 
-tidy_stocks &lt;- stocks %&gt;% pivot_longer(-time, names_to = &quot;stock&quot;, values_to = &quot;price&quot;)</code></pre>
-<p>After you’ve tidied stocks, make another table “untidy_stocks” by putting “tidy_stocks” back in its original format:</p>
-<pre class="r"><code>#desired
-head(stocks)
-#&gt; # A tibble: 6 x 4
-#&gt;   time            X       Y      Z
-#&gt;   &lt;date&gt;      &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt;
-#&gt; 1 2009-01-01 -0.685 -0.0685  4.30 
-#&gt; 2 2009-01-02  0.289 -2.71    0.884
-#&gt; 3 2009-01-03  0.362  2.44   -4.28 
-#&gt; 4 2009-01-04  0.721  3.81   -1.60 
-#&gt; 5 2009-01-05  1.23  -0.741   7.41 
-#&gt; 6 2009-01-06 -0.779 -0.578  -1.23
-#from tidy_stocks created above
-#head(tidy_stocks)
-
-#untidy_stocks &lt;- tidy_stocks %&gt;% 
-#  pivot_????()
+# tidy_stocks &lt;- stocks %&gt;%
+#   pivot_???()
 
 #check
-#head(untidy_stocks)</code></pre>
+#tidy_stocks</code></pre>
 </div>
-<div id="when-things-are-a-real-mess" class="section level2">
-<h2>When things are a real mess!</h2>
+<div id="the-bells-and-whistles-for-the-big-messes" class="section level2">
+<h2>The bells and whistles: for the big messes!</h2>
 <ul>
 <li><p>pivot_longer:</p>
 <ul>
@@ -1838,21 +1780,29 @@ head(stocks)
 </div>
 <div id="how-am-i-doing" class="section level2">
 <h2>How am I doing?</h2>
-<table>
+<table style="width:61%;">
+<colgroup>
+<col width="16%"></col>
+<col width="22%"></col>
+<col width="22%"></col>
+</colgroup>
 <thead>
 <tr class="header">
-<th>Content</th>
-<th>Presentation</th>
+<th></th>
+<th align="left">Content</th>
+<th align="left">Presentation</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td>+</td>
-<td>+</td>
+<td>Positive</td>
+<td align="left"></td>
+<td align="left"></td>
 </tr>
 <tr class="even">
-<td>-</td>
-<td>-</td>
+<td>Negative</td>
+<td align="left"></td>
+<td align="left"></td>
 </tr>
 </tbody>
 </table>

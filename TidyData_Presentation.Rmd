@@ -7,7 +7,7 @@ output:
     fig_height: 6
     fig_width: 7
     incremental: yes
-    footer: "Katie Sasso-Schafer"
+    footer: "Katie Sasso-Schafer, https://rstudio.cloud/project/420147"
     df_print: kable
 editor_options: 
   chunk_output_type: console
@@ -51,39 +51,6 @@ library(tidyr)
 }
 </style>
 
-## Learner Persona: Julie
-
-<div class="column-left">
-- Background
-  + Early career financial audit analyst. Does reporting on financial trends & rolling average projections
-  + Bachelor's degree in finance in 2015
-  
-- Relevant Experience
-  + Has been using excel and ACL (Audit Control Language) daily at work for the past 3 years 
-  + Will occasionally use R at work to make a graph or play with a regression model out, but does most data prep & reporting in excel
-  + Comes to monthly to R-Ladies meetups and has taken R-Ladies Intro to R courses covering
-    - R & RStudio Basics (R Objects, RStudio, Data Types & Structures, Functions & Arguments)
-    - Data Wrangling basics (pipes & dplyr: filter, slice, select, mutate, etc.)
-    - Visualization & Communication (ggplot2, intro to RMarkdown)
-</div>  
-
-<div class="column-left">
-- Needs
-  + To spend less time cutting/pasting and manually manipulating things in excel to make weekly reports
-    - Would love to just press a button every Monday to generate report
-  + Would like to make nicer charts for weekly sales projections and capture rates
-  + Would love to give her team a dashboard instead of a static report with multiple tables
-  + More accurate sales forecasts than her 8wk avg can achieve
-  
-- Special Considerations
-  + Has a heavy meeting schedule
-  + Visual learner
-</div>
- 
-## Concept Map
-
-<center><img src="./img/concept_map.png" height="500px" /></center> 
-
 ## Data Wrangling: Tidying
 
 - Covered in detail in [R for Data Science](http://r4ds.had.co.nz/index.html)
@@ -116,49 +83,6 @@ relig_income data[^relig_income]
   
 </div>
   
-
-## Is this Tidy Data?
-
-```{r formative_assessment1, echo=FALSE}
-preg.tbl <- read.table(text= "Pregnant,Not.Pregnant
-0,5
-1,4", header=T, sep=",", row.names=c("Male", "Female"))
-
-preg.tbl %>%
-kable("html")
-```
-
-Hint: 
-
-- What are the variables in this data?
-- What are the rows? 
-- What are the columns?
-- Remember our 3 rules (column = variable, row = observation, cell = value)
-
-## Answer: it can be tidier!
-
-```{r, eval=T, echo=F}
-kable(preg.tbl)
-```
-
-- What are the variables in this data?        
-    `Sex`, `Pregnancy`, `n` 
-- What are rows?    
-    **Rows** are the **values of a variable**, `sex`, not **observations**
-- What are columns?     
-    **Columns** are the **values of a variable**,`pregnant`, not **variables** 
-
-## A tidier version
-
-```{r}
-preg.tbl %>% 
-  mutate(sex = row.names(.)) %>% 
-  pivot_longer(-sex, names_to = c('pregnant'), values_to = 'count')
-```
-
-- **rows** are **observations** of counts of people falling into sex X pregnancy status combinations
-- **columns** are **variables** reflecting your key metrics (sex, pregnant, count)
-
 ## How do I do it?
 
 1. Figure out what the variables and observations are
@@ -173,7 +97,7 @@ preg.tbl %>%
     -  "widens" data, increasing the number of columns and decreasing the number of rows
 
 - Let's try it out! 
-  + Please open the TidyData_report.Rmd file
+  + Please open the Condensed_TidyData_report.Rmd file
 
 
 

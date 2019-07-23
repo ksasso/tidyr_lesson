@@ -10,6 +10,8 @@ editor_options:
 
 ```{r, echo = FALSE, message=FALSE, error=FALSE, warning=FALSE}
 knitr::opts_chunk$set(collapse = TRUE, comment = "#>", message = FALSE, error = FALSE, warning = FALSE)
+#devtools::install_github("tidyverse/tidyr")
+#devtools::install_github("chrk623/dataAnim")
 library(knitr)
 library(kableExtra)
 library(dplyr)
@@ -41,7 +43,9 @@ To tidy we need to use pivot_longer to make the following transformation
   + `data`specifies the df to reshape `datoy_wide`
   + `cols` specifies the columns that needs to be reshaped, in this case it's `English & Maths`. Hint: the columns that contain values, not variables, as headers
   + `names_to` a string specifying the name of the new column to create from the data stored in the headers of the columns specified in the `cols` argument, i.e. `Subject`
-  + `values_to` a string specifiying the name of the new column to create from the data data stored in the cell values of the columns specified in the `cols` argument, i.e. `Score`
+  + `values_to` a string specifiying the name of the new column to create from the data stored in the cell values of the columns specified in the `cols` argument, i.e. `Score`
+
+LEFT OFF HERE AT 10 MINS IN!!!
 
 Let's code it!
 
@@ -49,8 +53,7 @@ Let's code it!
 ?pivot_longer
 
 #datoy_wide  %>% 
-#  pivot_longer(
-#  )
+#  pivot_longer()
 ```
 
 ## You try: Religion and Income!
@@ -92,17 +95,6 @@ relig_income %>%
 
 ```
 
-<!-- Which of the following would NOT have worked? -->
-
-<!-- 1. pivot_longer(data = relig_income,cols = -c(religion), names_to = "income", values_to = "count") -->
-
-<!-- 2. pivot_longer(data = relig_income,cols = 2:11, names_to = "income", values_to = "count") -->
-
-<!-- 3. pivot_longer(data = relig_income,cols = `<$10k`:`Don't know/refused`, names_to = "income", values_to = "count") -->
-
-<!-- 4. pivot_longer(data = relig_income,cols = <$10k:Don't know/refused, names_to = "income", values_to = "count") -->
-
-<!-- >syntactically valid names consists of letters, numbers and the dot or underline characters and starts with a letter or the dot not followed by a number -->
 
 ## pivot_wider: An observation is scattered across multiple rows
 
@@ -110,6 +102,7 @@ relig_income %>%
   + In this instance, we would use pivot_wider to make tidy data
   
 ```{r, echo = FALSE}
+
 weather <- readr::read_csv("weather.csv") %>% 
   pivot_longer(d1:d31, names_to = "day", names_prefix = "d",
                values_to = "value", values_drop_na = TRUE) 
@@ -156,16 +149,15 @@ What if we wanted this in wide format for a summary table?
 Let's code it!
 
 ```{r}
-datoy_long 
+#datoy_long %>% 
+#  pivot_wider()
 ```
-
 
 ## You try!
 
 Take our "tidied" relig_income data set and put it back in its original "wide" format by uncommenting the code below
 
 ```{r}
-
 
 tidy_relig_income <- relig_income %>% 
   pivot_longer(cols = -religion, names_to = "income", values_to = "count")
@@ -181,7 +173,6 @@ relig_income
 #     names_from = ,
 #     values_from = 
 #   )
-
 ```
 
 ## Putting it all together
@@ -205,8 +196,11 @@ Make a new dataset "tidy_stocks" by using the appropriate pivot function to tidy
 ```{r}
 # insert tidying code here
 
-# tidy_stocks <- stocks %>% 
+# tidy_stocks <- stocks %>%
 #   pivot_???()
+
+#check
+#tidy_stocks
 ```
 
 
@@ -235,8 +229,15 @@ Make a new dataset "tidy_stocks" by using the appropriate pivot function to tidy
 
 ## How am I doing?
 
-Content | Presentation
-------- | ------------
-   +    |     +
-   -    |     -
+-------------------------------------------
+            Content         Presentation
+----------- --------------- ---------------
+  Positive            
+                    
+
+  Negative            
+                    
+                    
+-------------------------------------------
+
    
