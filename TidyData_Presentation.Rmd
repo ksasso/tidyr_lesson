@@ -36,28 +36,38 @@ library(tidyr)
 </style>
 
 <style>
-.column-right{
-  float: right;
-  width: 46%;
-  text-align: right;
+.column-left-wide{
+  float: left;
+  width: 63%;
+  text-align: left;
+}
+</style>
+
+<style>
+.column-left-narrow{
+  float: left;
+  width: 33%;
+  text-align: left;
 }
 </style>
 
 ## Learner Persona: Julie
 
+<div class="column-left">
 - Background
   + Early career financial audit analyst. Does reporting on financial trends & rolling average projections
-  + Bachelor's degree in finance
-  + Tired of having to reformat excel sheets weekly for reports
+  + Bachelor's degree in finance in 2015
   
 - Relevant Experience
   + Has been using excel and ACL (Audit Control Language) daily at work for the past 3 years 
-  + Will occasionally use R at work to make a graph or play with a regression model out, but does most data prep in excel and end reporting always in excel or ppt
+  + Will occasionally use R at work to make a graph or play with a regression model out, but does most data prep & reporting in excel
   + Comes to monthly to R-Ladies meetups and has taken R-Ladies Intro to R courses covering
     - R & RStudio Basics (R Objects, RStudio, Data Types & Structures, Functions & Arguments)
     - Data Wrangling basics (pipes & dplyr: filter, slice, select, mutate, etc.)
     - Visualization & Communication (ggplot2, intro to RMarkdown)
-  
+</div>  
+
+<div class="column-left">
 - Needs
   + To spend less time cutting/pasting and manually manipulating things in excel to make weekly reports
     - Would love to just press a button every Monday to generate report
@@ -68,6 +78,7 @@ library(tidyr)
 - Special Considerations
   + Has a heavy meeting schedule
   + Visual learner
+</div>
  
 ## Concept Map
 
@@ -79,15 +90,20 @@ library(tidyr)
     + This content adapted from this & [tidyr documentation](https://tidyr.tidyverse.org/dev/articles/pivot.html)
 - Tools from the [`tidyverse`](https://www.tidyverse.org/)
 
- <center><img src="./img/logos_wrangle_all.png" height="400px" width = "750px" /></center>
+ <center><img src="./img/logos_wrangle_all.png" height="400px"/></center>
 
 ## Tidy Data
 
-<center><img src="./img/concept_map.png" height="400px" /></center>
+<div class="column-left-wide">
+<left><img src="./img/concept_map.png" height="450px" /></left>
 
 relig_income data[^relig_income]
 
 [^relig_income]:The relig_income dataset comes from a report produced by the Pew Research Center, examining the relationship between income and religion in the U.S.
+
+</div>
+
+<div class="column-left-narrow">
 
 - each **variable** must have its own **column**
 - each **observations** must have its own **row**
@@ -95,18 +111,20 @@ relig_income data[^relig_income]
   + Impossible to satisfy 2 of 3 rules
   
 - Why Tidy?
-
-  + Consistency in storage = consistency in tools that work
   + Key R functions (i.e., mutate, select, ggplot, filter) work on vectors of values
+  + Consistency in storage = consistency in tools that work
+  
+</div>
+  
 
 ## Is this Tidy Data?
 
 ```{r formative_assessment1, echo=FALSE}
-married <- read.table(text= "married,not_married
-2,3
-3,2", header=T, sep=",", row.names=c("male", "female"))
+preg.tbl <- read.table(text= "Pregnant,Not.Pregnant
+0,5
+1,4", header=T, sep=",", row.names=c("Male", "Female"))
 
-married %>%
+preg.tbl %>%
 kable("html")
 ```
 
@@ -117,34 +135,29 @@ Hint:
 - What are the columns?
 - Remember our 3 rules (column = variable, row = observation, cell = value)
 
-## No - it can be tidier!
+## Answer: it can be tidier!
 
-```{r, echo=FALSE}
-married <- read.table(text= "married,not_married
-2,3
-3,2", header=T, sep=",", row.names=c("male", "female"))
-
-married %>%
-kable("html")
+```{r, eval=T, echo=F}
+kable(preg.tbl)
 ```
 
-- What are the variables in this data?
-  + sex, marital status, count
-- What are rows? 
-  + **Rows** are **values of a variable, sex** not **observations**
-- What are columns?
-  + **Columns** are **values of a variable, marital status** not **variables**
+- What are the variables in this data?        
+    `Sex`, `Pregnancy`, `n` 
+- What are rows?    
+    **Rows** are the **values of a variable**, `sex`, not **observations**
+- What are columns?     
+    **Columns** are the **values of a variable**,`pregnant`, not **variables** 
 
 ## A tidier version
 
 ```{r}
-married %>% 
+preg.tbl %>% 
   mutate(sex = row.names(.)) %>% 
-  pivot_longer(-sex, names_to = c('marital_status'), values_to = 'count')
+  pivot_longer(-sex, names_to = c('pregnant'), values_to = 'count')
 ```
 
-- **rows** are **observations** of counts of people falling into sex X marital status combinations
-- **columns** are **variables** reflecting your key metrics (sex, marital status, count)
+- **rows** are **observations** of counts of people falling into sex X pregnancy status combinations
+- **columns** are **variables** reflecting your key metrics (sex, pregnant, count)
 
 ## How do I do it?
 

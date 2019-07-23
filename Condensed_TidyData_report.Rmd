@@ -29,19 +29,19 @@ datoy_wide
 ```
 
 - 3 variables
-  + *Name* stored in rows
-  + *Subject* spread across column names
-  + *Score* stored in cell values
+  + `Name` stored in rows
+  + `Subject` spread across column names
+  + `Score` stored in cell values
   
 To tidy we need to use pivot_longer to make the following transformation
 
 [pivot longer animation](./pivot_longer_animation.html)
 
-- The first argument is the *data* to reshape *datoy_wide*
-- The second argument describes which *cols* needs to be reshaped, in this case it's *English & Maths*
-- The *names_to* argument gives the name of the variable that will be created from the data stored in the column names, i.e. *Subject*
-- The *values_to* gives the name of the variable that will be created from the data stored in the cell value, i.e. *Score*
-    + Neither the names_to nor the values_to column exists in datoy_wide, so we provide them as character strings surrounded in quotes.
+- Essential arguments
+  + `data`specifies the df to reshape `datoy_wide`
+  + `cols` specifies the columns that needs to be reshaped, in this case it's `English & Maths`. Hint: the columns that contain values, not variables, as headers
+  + `names_to` a string specifying the name of the new column to create from the data stored in the headers of the columns specified in the `cols` argument, i.e. `Subject`
+  + `values_to` a string specifiying the name of the new column to create from the data data stored in the cell values of the columns specified in the `cols` argument, i.e. `Score`
 
 Let's code it!
 
@@ -75,7 +75,9 @@ Let's try again.
 
 Uncomment the code below and fill in to tidy the relig_income dataset
 
-- Try a different way of selecting "cols" than we did above (i.e., -religion) and be sure to fill in arguments names_to and values_to
+- Try specifying the columns to pivot into a longer format in the `cols` argument in a different way than you did above. 
+  + Remember we can use tidyselect principles to specify columns
+  + Be sure to fill in arguments `names_to` and `values_to`
 
 ```{r}
 relig_income %>% 
@@ -90,17 +92,17 @@ relig_income %>%
 
 ```
 
-Which of the following would NOT have worked?
+<!-- Which of the following would NOT have worked? -->
 
-1. pivot_longer(data = relig_income,cols = -c(religion), names_to = "income", values_to = "count")
+<!-- 1. pivot_longer(data = relig_income,cols = -c(religion), names_to = "income", values_to = "count") -->
 
-2. pivot_longer(data = relig_income,cols = 2:11, names_to = "income", values_to = "count")
+<!-- 2. pivot_longer(data = relig_income,cols = 2:11, names_to = "income", values_to = "count") -->
 
-3. pivot_longer(data = relig_income,cols = `<$10k`:`Don't know/refused`, names_to = "income", values_to = "count")
+<!-- 3. pivot_longer(data = relig_income,cols = `<$10k`:`Don't know/refused`, names_to = "income", values_to = "count") -->
 
-4. pivot_longer(data = relig_income,cols = <$10k:Don't know/refused, names_to = "income", values_to = "count")
- 
->syntactically valid names consists of letters, numbers and the dot or underline characters and starts with a letter or the dot not followed by a number
+<!-- 4. pivot_longer(data = relig_income,cols = <$10k:Don't know/refused, names_to = "income", values_to = "count") -->
+
+<!-- >syntactically valid names consists of letters, numbers and the dot or underline characters and starts with a letter or the dot not followed by a number -->
 
 ## pivot_wider: An observation is scattered across multiple rows
 
@@ -116,12 +118,12 @@ weather %>%
 
 ```
 
-- Most variables have individuals columns *(id, year,month, day, value)* but two variables
-*(tmax, tmin)* are spread across rows, and stored in the "element" column.
-  + Element is not a variable - it's a column that stores the names of two variables
+- Most variables have individuals columns (`id`, `year`, `month`, `day`, `value`) but two variables
+(`tmax`, `tmin`) are spread across rows, and stored in the `element` column.
+  + `element` is not a variable - it's a column that stores the names of two variables
   
-- Fixing this requires **pivot_wider** function 
-  + Performs the inverse of **pivot_longer** by spreading the *element* and *value* columns back out into columns
+- Fixing this requires `pivot_wider` function 
+  + Performs the inverse of `pivot_longer` by spreading the `element` and `value` columns back out into columns
   
 ```{r}
 weather %>% 
@@ -131,10 +133,11 @@ weather %>%
 ?pivot_wider
 ```
 
-- The first argument is the *data* to reshape *weather*
-- The second argument,*id_cols* describes which columns that unique identify each observation. The default is usually sufficient (defaults to all columns in the data except for the columns specified in names_from and values_from)
-  + Typically only used when you have an additional variable that is directly related. Can be helpful in cleaning multiple choice data
-- The *names_from* and *values_from* are paired arguments describing which column (or columns) to get the name of the output column *(name_from = element)*, and which column (or columns) to get the cell values from *(values_from = value)*
+- Essential Arguments
+  + `data`specifies the df to reshape `weather`
+  + `names_from` and `values_from` are paired arguments describing which column(s) R should get the name of the output column(s) from, `name_from` = `element`, and which column(s) it should get the cell values from `values_from` = `value`
+    - `names_from` usually column(s) that contains the names of variables as values
+    - `values_from` the column(s) whose values correspond to the variable(s) stored in the `names_from` columns(s) 
 
 - In practice, relatively rare to need pivot_wider for tidying, but it's often useful for creating summary tables for presentation
 
@@ -181,27 +184,6 @@ relig_income
 
 ```
 
-<!-- One More -->
-
-<!-- Tidy "table2" using pivot_wider -->
-
-<!-- HINT: -->
-
-<!-- - This dataset is actually untidy, like the weather example, in that some values are actually variables (i.e., variables stored in a column) -->
-
-
-<!-- ```{r} -->
-<!-- table2 %>%  -->
-<!--   head() -->
-
-<!-- # insert tidying code here -->
-
-<!-- # table2 %>%  -->
-<!-- #   pivot_wider( -->
-<!-- #   ) -->
-<!-- ``` -->
-
-
 ## Putting it all together
 
 Load & examine the following dataset 
@@ -217,7 +199,8 @@ stocks <- tibble(
 stocks
 ```
 
-Make a new dataset "tidy_stocks" by using the appropriate pivot function to tidy
+Make a new dataset "tidy_stocks" by using the appropriate pivot function to tidy. 
+  - replace "???" with longer or wider
 
 ```{r}
 # insert tidying code here
@@ -227,7 +210,7 @@ Make a new dataset "tidy_stocks" by using the appropriate pivot function to tidy
 ```
 
 
-## When things are a real mess!
+## The bells and whistles: for the big messes!
 
 - pivot_longer:
 
