@@ -41,11 +41,10 @@ To tidy we need to use pivot_longer to make the following transformation
 
 - Essential arguments
   + `data`specifies the df to reshape `datoy_wide`
-  + `cols` specifies the columns that needs to be reshaped, in this case it's `English & Maths`. Hint: the columns that contain values, not variables, as headers
-  + `names_to` a string specifying the name of the new column to create from the data stored in the headers of the columns specified in the `cols` argument, i.e. `Subject`
-  + `values_to` a string specifiying the name of the new column to create from the data stored in the cell values of the columns specified in the `cols` argument, i.e. `Score`
-
-LEFT OFF HERE AT 10 MINS IN!!!
+  + `cols` specifies the columns that needs to be reshaped, in this case it's `English & Maths`. 
+    - Hint: the columns that contain values, not variables, as headers
+  + `names_to` a string specifying the name of the new column(s) to create from the data stored in the headers of the columns specified in the `cols` argument, i.e. `Subject`
+  + `values_to` a string specifying the name of the new column(s) to create from the data stored in the cell values of the columns specified in the `cols` argument, i.e. `Score`
 
 Let's code it!
 
@@ -79,7 +78,7 @@ Let's try again.
 Uncomment the code below and fill in to tidy the relig_income dataset
 
 - Try specifying the columns to pivot into a longer format in the `cols` argument in a different way than you did above. 
-  + Remember we can use tidyselect principles to specify columns
+  + Remember we can use tidyselect principles to specify columns, like we did with select!
   + Be sure to fill in arguments `names_to` and `values_to`
 
 ```{r}
@@ -94,7 +93,6 @@ relig_income %>%
 #   )
 
 ```
-
 
 ## pivot_wider: An observation is scattered across multiple rows
 
@@ -111,12 +109,14 @@ weather %>%
 
 ```
 
+
 - Most variables have individuals columns (`id`, `year`, `month`, `day`, `value`) but two variables
 (`tmax`, `tmin`) are spread across rows, and stored in the `element` column.
   + `element` is not a variable - it's a column that stores the names of two variables
   
 - Fixing this requires `pivot_wider` function 
-  + Performs the inverse of `pivot_longer` by spreading the `element` and `value` columns back out into columns
+  + Performs the inverse of `pivot_longer`
+  
   
 ```{r}
 weather %>% 
@@ -155,24 +155,21 @@ Let's code it!
 
 ## You try!
 
-Take our "tidied" relig_income data set and put it back in its original "wide" format by uncommenting the code below
+Tidy table2 using pivot_wider below by uncommenting the code
+
+- HINT: this is like our weather data in that it is actually untidy. One column contains the names of two unique variables
 
 ```{r}
 
-tidy_relig_income <- relig_income %>% 
-  pivot_longer(cols = -religion, names_to = "income", values_to = "count")
-
 # have
-tidy_relig_income
+table2 %>% 
+  head()
 
-#want
-relig_income
-
-# tidy_relig_income %>% 
-#   pivot_wider(
-#     names_from = ,
-#     values_from = 
-#   )
+# table2 %>%
+#  pivot_wider(
+#    names_from = ,
+#    values_from =
+#  )
 ```
 
 ## Putting it all together
@@ -191,15 +188,17 @@ stocks
 ```
 
 Make a new dataset "tidy_stocks" by using the appropriate pivot function to tidy. 
-  - replace "???" with longer or wider
+
+- replace "???" with longer or wider
 
 ```{r}
-# insert tidying code here
-
-# tidy_stocks <- stocks %>%
+## insert tidying code here
+#
+#tidy_stocks <- stocks %>%
 #   pivot_???()
+#
+## check
 
-#check
 #tidy_stocks
 ```
 

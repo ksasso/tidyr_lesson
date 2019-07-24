@@ -91,10 +91,8 @@ relig_income data[^relig_income]
    - wider: one observation scattered across multiple rows
 
 - Two key tidyr functions for solving
-  + pivot_longer (previously gather)
-    - makes datasets longer by increasing the number of rows and decreasing the number of columns
+  + pivot_longer (previously gather) columns
   + pivot_wider  (previously spread)
-    -  "widens" data, increasing the number of columns and decreasing the number of rows
 
 - Let's try it out! 
   + Please open the Condensed_TidyData_report.Rmd file
