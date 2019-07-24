@@ -51,7 +51,7 @@ Let's code it!
 ```{r}
 ?pivot_longer
 
-#datoy_wide  %>% 
+# datoy_wide  %>%
 #  pivot_longer()
 ```
 
@@ -64,9 +64,9 @@ Uncomment the code below and fill in to tidy the relig_income dataset
 relig_income %>% 
   head()
 
-#relig_income %>% 
+# relig_income %>%
 # pivot_longer(
-#   cols = , 
+#   cols = ,
 #   names_to = "income",
 #   values_to = "count"
 #   )
@@ -78,18 +78,18 @@ Let's try again.
 Uncomment the code below and fill in to tidy the relig_income dataset
 
 - Try specifying the columns to pivot into a longer format in the `cols` argument in a different way than you did above. 
-  + Remember we can use tidyselect principles to specify columns, like we did with select!
+  + Remember we can use tidyselect principles to specify columns, like we did with `select`!
   + Be sure to fill in arguments `names_to` and `values_to`
 
 ```{r}
 relig_income %>% 
   head()
 
-#relig_income %>% 
+# relig_income %>%
 # pivot_longer(
-#   cols = , 
+#   cols = ,
 #   names_to = ,
-#   values_to = 
+#   values_to =
 #   )
 
 ```
@@ -143,9 +143,6 @@ datoy_long
 
 What if we wanted this in wide format for a summary table?
 
-[pivot wider animation](./pivot_wider_animation.html)
-
-
 Let's code it!
 
 ```{r}
@@ -170,6 +167,7 @@ table2 %>%
 #    names_from = ,
 #    values_from =
 #  )
+
 ```
 
 ## Putting it all together
@@ -192,14 +190,14 @@ Make a new dataset "tidy_stocks" by using the appropriate pivot function to tidy
 - replace "???" with longer or wider
 
 ```{r}
-## insert tidying code here
-#
-#tidy_stocks <- stocks %>%
-#   pivot_???()
-#
-## check
-
-#tidy_stocks
+# # insert tidying code here
+# 
+# tidy_stocks <- stocks %>%
+#    pivot_???()
+# 
+# # check
+# 
+# tidy_stocks
 ```
 
 
